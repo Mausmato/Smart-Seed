@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import DropImage from "../components/DropImage";
-import MoistureLevels from "../components/MoistureLevels";
-import SoilNutrients from "../components/SoilNutrients";
-import Logo from "../components/logo";
 import { BackgroundGradientAnimation } from "../components/bg";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import ShimmerButton from "../components/shimmer";
-import { motion } from "framer-motion"; // Import motion from framer-motion
 
 
 const Home: React.FC = () => {

@@ -1,23 +1,16 @@
-import React from "react";
+
+import "../../src/index.css";
+
 import { BentoGrid, BentoGridItem } from "../components/bento";
+import { PredictionData } from "types";
 
-interface CustomBentoGridProps {
-  predictionData: PredictionData;
-}
-
-export const CustomBentoGrid: React.FC<CustomBentoGridProps> = ({
-  predictionData,
-}) => {
+export const CustomBentoGrid = ({ data }: { data?: PredictionData }) => {
   return (
     <BentoGrid className="p-8 h-screen relative">
       <div className="w-full">
         <BentoGridItem
           className="bg-custom-gradient text-white w-full"
-          title={
-            <div className="text-5xl">
-              {predictionData.class_probabilities["Moisture Levels"] ?? "N/A"}
-            </div>
-          }
+          title={<div className="text-5xl">240%</div>}
           description={<div>Moisture Levels</div>}
           icon={<div className="icon-placeholder" />}
         />
@@ -27,7 +20,7 @@ export const CustomBentoGrid: React.FC<CustomBentoGridProps> = ({
           className="bg-white text-black w-full h-[200.797px]"
           title={
             <div className="text-5xl  text-neutral-900">
-              {predictionData.class_probabilities["Nutrient 1"] ?? "N/A"}
+              {data?.class_probabilities[0] || 1}%
             </div>
           }
           description={<div className=" text-neutral-800">Nutrient 1</div>}
@@ -37,7 +30,7 @@ export const CustomBentoGrid: React.FC<CustomBentoGridProps> = ({
           className="bg-white text-black w-full h-[200.797px]"
           title={
             <div className="text-5xl text-neutral-900">
-              {predictionData.class_probabilities["Nutrient 2"] ?? "N/A"}
+              {data?.class_probabilities[1] || 1}%
             </div>
           }
           description={<div className=" text-neutral-800">Nutrient 2</div>}
@@ -48,7 +41,7 @@ export const CustomBentoGrid: React.FC<CustomBentoGridProps> = ({
             className="bg-white text-black w-full h-[234px]"
             title={
               <div className="text-5xl text-neutral-900">
-                {predictionData.class_probabilities["Nutrient 3"] ?? "N/A"}
+                {data?.class_probabilities[2] || 1}%
               </div>
             }
             description={<div className=" text-neutral-800">Nutrient 3</div>}

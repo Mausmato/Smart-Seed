@@ -1,6 +1,3 @@
-import React from "react";
-import { PredictionData } from "../../types";  // Import the PredictionData interface
-
 
 const VisuallyHiddenInput = {
   clip: "rect(0 0 0 0)",
@@ -44,7 +41,7 @@ export default function InputFileUpload({ onImageUpload }) {
           cursor: "pointer",
           padding: "20px 40px",
           fontSize: "24px",
-          backgroundColor: "#428339",
+          backgroundColor: "#4FC461",
           color: "#fff",
           borderRadius: "4px",
           textAlign: "center",
