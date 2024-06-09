@@ -4,7 +4,9 @@ import Navbar from "../components/navbar";
 import InputFileUpload from "../components/lgbutton";
 import { PredictionData } from "../../types";  // Import the PredictionData interface
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";  
+import ShimmerButton from "../components/shimmer";
+
 
 export function GridBackground2() {
   const [data, setData] = useState<PredictionData>({});
@@ -29,7 +31,7 @@ export function GridBackground2() {
     })
     .catch((error) => {console.log(error);});
   } else {
-    navigator("/dash", { state: data});
+    navigator("/analyze", { state: "data"});
   }
   }, [uploadedImage]);
   const handleImageUpload = (image) => {
@@ -58,6 +60,15 @@ export function GridBackground2() {
           <InputFileUpload onImageUpload={handleImageUpload} />
         )}
       </div>
+      <div className="z-10 flex min-h-[8rem] items-center justify-center">
+        <Link to="/dash">
+          <ShimmerButton className="!bg-[#4FC461] shadow-2xl">
+            <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+              Head to Dashboard!
+            </span>
+          </ShimmerButton>
+        </Link>
+      </div>{" "}
     </div>
   );
 }

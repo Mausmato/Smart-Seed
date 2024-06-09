@@ -44,7 +44,7 @@ export default function InputFileUpload({ onImageUpload }) {
           cursor: "pointer",
           padding: "20px 40px",
           fontSize: "24px",
-          backgroundColor: "#4FC461",
+          backgroundColor: "#428339",
           color: "#fff",
           borderRadius: "4px",
           textAlign: "center",

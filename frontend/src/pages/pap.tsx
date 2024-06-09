@@ -13,6 +13,7 @@ import UploadButton from "../components/lgbutton";
 import {GridBackground2} from "../components/Ltext";
 
 
+
 const analyze: React.FC = () => {
 
   return (
@@ -20,6 +21,7 @@ const analyze: React.FC = () => {
       <GridBackground2>
         
       </GridBackground2>
+      
     </div>
   );
 };
