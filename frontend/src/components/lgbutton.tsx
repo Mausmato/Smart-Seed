@@ -1,4 +1,6 @@
 import React from "react";
+import { PredictionData } from "../../types";  // Import the PredictionData interface
+
 
 const VisuallyHiddenInput = {
   clip: "rect(0 0 0 0)",

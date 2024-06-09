@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "../../src/index.css";
 import Navbar from "../components/navbar";
 import InputFileUpload from "../components/lgbutton";
+import { PredictionData } from "../../types";  // Import the PredictionData interface
+
 
 export function GridBackground2() {
   const [uploadedImage, setUploadedImage] = useState(null);
