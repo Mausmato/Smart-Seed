@@ -4,8 +4,7 @@ As a result of extreme weather resulting from the climate crises, soil condition
 
 We want to enable communities: big and small, by allowing them to spend less time diagnosing their crop deaths. SmartSeed helps revitalise soil quality by analysing your plants for their deficiencies. 
 
-![Logo](https://i.postimg.cc/65f5Pw3z/smartseed-logo2.png)
-
+![Logo](https://i.postimg.cc/sg5PqMWq/smartseedlogo-FINAL.png)
 
 ## Features
 
