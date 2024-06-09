@@ -1,31 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Header from "../components/Header";
+import DropImage from "../components/DropImage";
+import MoistureLevels from "../components/MoistureLevels";
+import SoilNutrients from "../components/SoilNutrients";
+import Logo from "../components/logo";
+import { Link, useLocation } from "react-router-dom";
+import Navbar from "../components/navbar";
+import ShimmerButton from "../components/shimmer";
 import { GridBackground } from "../components/gridbg";
-import ImageUploader from "../components/ImageUploader";
-import { PredictionData } from "../../types"; // Import the PredictionData interface
 
 const Home: React.FC = () => {
-  const [predictionData, setPredictionData] = useState<PredictionData | null>(
-    null
-  );
-
+  const location = useLocation();
+  const data = location.state;
   return (
     <div className="relative">
-      <GridBackground predictionData={predictionData} />
-      <ImageUploader setPredictionData={setPredictionData} />
-      {predictionData && (
-        <div className="results-container">
-          <h2>Predicted Class: {predictionData.predicted_class}</h2>
-          <ul>
-            {Object.entries(predictionData.class_probabilities).map(
-              ([key, value]) => (
-                <li key={key}>
-                  {key}: {value.toFixed(4)}
-                </li>
-              )
-            )}
-          </ul>
-        </div>
-      )}
+      <GridBackground data={data} />
     </div>
   );
 };

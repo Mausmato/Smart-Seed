@@ -1,15 +1,10 @@
 import React from "react";
-import { PredictionData } from "../../types"; // Import the PredictionData interface
-
 import "../../src/index.css";
 import Navbar from "../components/navbar";
 import { CustomBentoGrid } from "../components/ourbento";
+import { PredictionData } from "types";
 
-interface GridBackgroundProps {
-  predictionData: PredictionData | null;
-}
-
-export function GridBackground({ predictionData }: GridBackgroundProps) {
+export function GridBackground({ data }: { data?: PredictionData }) {
   return (
     <div className="absolute top-0 left-0 h-[100rem] w-full dark:bg-[#f9f9f9] bg-[#f9f9f9] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex flex-col items-center justify-top">
       <Navbar />
@@ -22,7 +17,7 @@ export function GridBackground({ predictionData }: GridBackgroundProps) {
         id voluptatibus accusamus ipsa iusto in.
       </p>
       <div className="w-[90%] mt-8">
-        {predictionData && <CustomBentoGrid predictionData={predictionData} />}
+        <CustomBentoGrid data={data} />
       </div>
       <div className="w-full flex flex-col items-center justify-center mt-8">
         <div className="hover:shadow-2xl border-green-700 border-2 rounded-xl px-8 py-16 max-w-4xl text-center bg-white shadow">

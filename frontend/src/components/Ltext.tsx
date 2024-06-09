@@ -3,15 +3,38 @@ import "../../src/index.css";
 import Navbar from "../components/navbar";
 import InputFileUpload from "../components/lgbutton";
 import { PredictionData } from "../../types";  // Import the PredictionData interface
-
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function GridBackground2() {
-  const [uploadedImage, setUploadedImage] = useState(null);
-
+  const [data, setData] = useState<PredictionData>({});
+  const [uploadedImage, setUploadedImage] = useState<string>("");
+  const navigator = useNavigate();
+  useEffect(() => {
+  if (uploadedImage !== "") {
+    fetch(
+      "localhost:5000/predict",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", 
+        }
+        ,body: JSON.stringify({
+          image: uploadedImage,
+        }),
+      }
+    )
+    .then(response => response.json()).then((prediction: PredictionData) => {
+      setData(prediction);
+    })
+    .catch((error) => {console.log(error);});
+  } else {
+    navigator("/dash", { state: data});
+  }
+  }, [uploadedImage]);
   const handleImageUpload = (image) => {
     setUploadedImage(image);
   };
-
   return (
     <div className="!absolute top-0 left-0 h-screen w-full dark:bg-[#f9f9f9] bg-[#f9f9f9] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex flex-col justify-top">
       <Navbar />
