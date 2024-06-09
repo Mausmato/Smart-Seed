@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { GridBackground } from "../components/gridbg";
 import ImageUploader from "../components/ImageUploader";
 import { PredictionData } from "../../types"; // Import the PredictionData interface
@@ -11,7 +12,13 @@ const Home: React.FC = () => {
   return (
     <div className="relative">
       <GridBackground predictionData={predictionData} />
-      <ImageUploader setPredictionData={setPredictionData} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <ImageUploader setPredictionData={setPredictionData} />
+      </motion.div>
       {predictionData && (
         <div className="results-container">
           <h2>Predicted Class: {predictionData.predicted_class}</h2>
