@@ -31,12 +31,13 @@ export function GridBackground2() {
     })
     .catch((error) => {console.log(error);});
   } else {
-    navigator("/analyze", { state: "data"});
+    navigator("/analyze", { state: data});
   }
   }, [uploadedImage]);
   const handleImageUpload = (image) => {
     setUploadedImage(image);
   };
+
   return (
     <div className="!absolute top-0 left-0 h-screen w-full dark:bg-[#f9f9f9] bg-[#f9f9f9] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex flex-col justify-top">
       <Navbar />
