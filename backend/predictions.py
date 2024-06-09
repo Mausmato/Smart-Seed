@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 import pandas as pd
 from tensorflow import keras
@@ -6,7 +7,11 @@ import tensorflow as tf
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
 from PIL import Image
-import sys
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+# Ensure compatibility with the latest TensorFlow and Keras versions
+from tensorflow.keras.preprocessing import image as keras_image
 
 def load_image(image_file):
     img = Image.open(image_file)
@@ -15,41 +20,53 @@ def load_image(image_file):
 class Preprocessor(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
-
-    def transform(self, img_object, y=None):
-        img = img_object.resize((224, 224))
-        img_array = np.array(img) / 255.0  # Normalize to [0, 1]
-        expanded = np.expand_dims(img_array, axis=0)
-        return expanded
+    
+    def transform(self, X):
+        processed_images = []
+        for img_object in X:
+            img = img_object.resize((224, 224))
+            img_array = keras_image.img_to_array(img)
+            img_array = np.expand_dims(img_array, axis=0)
+            img_array = tf.keras.applications.mobilenet_v2.preprocess_input(img_array)
+            processed_images.append(img_array)
+        return np.vstack(processed_images)
 
 class Predictor(BaseEstimator, TransformerMixin):
-    def __init__(self, model):
-        self.model = model
-
+    def __init__(self, model_path):
+        # Load the model without compilation
+        self.model = keras.models.load_model(model_path, compile=False)
+        self.mapping = ['P_Deficiency', 'K_Deficiency', 'N_Deficiency', 'Healthy']
+        # Compile the model explicitly
+        self.model.compile(
+            optimizer='adam', 
+            loss='sparse_categorical_crossentropy', 
+            metrics=['accuracy']
+        )
+    
     def fit(self, X, y=None):
         return self
-
+    
     def predict(self, img_array):
-        pred = self.model.predict(img_array)
-        return pred
+        probabilities = self.model.predict(img_array)
+        predicted_class = self.mapping[np.argmax(probabilities, axis=1)[0]]
+        class_probabilities = {self.mapping[i]: prob for i, prob in enumerate(probabilities[0])}
+        return predicted_class, class_probabilities
+
+model_path = 'weights.hdf5'
+full_pipeline = Pipeline([
+    ('preprocessor', Preprocessor()),
+    ('predictor', Predictor(model_path=model_path))
+])
+
+def output(full_pipeline, img):
+    predicted_class, class_probabilities = full_pipeline.predict([img])
+    return predicted_class, class_probabilities
 
 if __name__ == '__main__':
     file_path = sys.argv[1]
-
-    model = keras.models.load_model('weights.hdf5')
-    mapping = ['P_Deficiency', 'N_Deficiency', 'K_Deficiency', 'Healthy']
-
-    full_pipeline = Pipeline([
-        ('preprocessor', Preprocessor()),
-        ('predictor', Predictor(model))
-    ])
-
     img = load_image(file_path)
-    pred = full_pipeline.predict(img)
-
-    phosphorus_percentage = str(pred[0][0] * 100) + "%"
-    Nitrogen_percentage = str(pred[0][1] * 100) + "%"
-    potassium_percentage = str(pred[0][2] * 100) + "%"
-    plant_health = str(pred[0][3] * 100) + "%"
-
-    print(f"phosphorus = {phosphorus_percentage} nitrogen = {Nitrogen_percentage} potassium = {potassium_percentage} health = {plant_health}")
+    predicted_class, class_probabilities = output(full_pipeline, img)
+    print(f"Predicted class: {predicted_class}")
+    print("Class probabilities:")
+    for class_name, probability in class_probabilities.items():
+        print(f"{class_name}: {probability:.4f}")
