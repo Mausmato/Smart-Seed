@@ -1,0 +1,1 @@
+print("chicken wings are better than chciekn ")

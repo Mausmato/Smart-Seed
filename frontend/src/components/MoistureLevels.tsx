@@ -7,7 +7,7 @@ interface MoistureLevelsProps {
 const MoistureLevels: React.FC<MoistureLevelsProps> = ({ moisture }) => {
   return (
     <div>
-      <h2>Moisture Levels</h2>
+      <h2>Overall Plant Health</h2>
       <p>{moisture} ppm</p>
     </div>
   );

@@ -29,12 +29,7 @@ const Navbarr = () => {
         </NavbarItem>
         <NavbarItem isActive>
           <Link to ="/analyze"  aria-current="page">
-            About
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link to=""  aria-current="page">
-            Contact
+            Analyze
           </Link>
         </NavbarItem>
       </NavbarContent>

@@ -12,8 +12,7 @@ export function GridBackground({ data }: { data?: PredictionData }) {
         Dashboard
       </p>
       <p className="text-2xl text-center mt-4 max-w-[50rem]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, molestias
-        id voluptatibus accusamus ipsa iusto in.
+       Welcome to your dashboard! Dive into your data and insights here.
       </p>
       <div className="w-[90%] mt-8">
         <CustomBentoGrid data={data} />
@@ -24,11 +23,9 @@ export function GridBackground({ data }: { data?: PredictionData }) {
             Recommendations
           </h1>
           <p className="text-xl mt-4">
-            1) Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
-            molestias
+            Hey! Keep up the good work!
             <br />
-            2) Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
-            molestias id voluptatibus accusamus ipsa iusto in.
+            Your plant is in very good health!
           </p>
         </div>
       </div>

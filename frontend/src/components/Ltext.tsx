@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "../../src/index.css";
 import Navbar from "../components/navbar";
 import InputFileUpload from "../components/lgbutton";
@@ -12,10 +12,22 @@ export function GridBackground2() {
   const [data, setData] = useState<PredictionData>({});
   const [uploadedImage, setUploadedImage] = useState<string>("");
   const navigator = useNavigate();
+  // const isMounted = useRef(true);
+
+  // useEffect(() => {
+  //   return () => {
+  //     // Set isMounted to false when component unmounts
+  //     isMounted.current = false;
+  //   };
+  // }, []);
+  if (Object.keys(data).length){
+    navigator("/dash", { state: data});
+  }
+
   useEffect(() => {
   if (uploadedImage !== "") {
     fetch(
-      "localhost:5000/predict",
+      "http://127.0.0.1:5000/predict",
       {
         method: "POST",
         headers: {
@@ -30,9 +42,9 @@ export function GridBackground2() {
       setData(prediction);
     })
     .catch((error) => {console.log(error);});
-  } else {
-    navigator("/analyze", { state: data});
+    return
   }
+  console.log("here", data) 
   }, [uploadedImage]);
   const handleImageUpload = (image) => {
     setUploadedImage(image);

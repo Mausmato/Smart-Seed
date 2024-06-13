@@ -60,6 +60,8 @@ full_pipeline = Pipeline([
 
 def output(full_pipeline, img):
     predicted_class, class_probabilities = full_pipeline.predict([img])
+    # Multiply each probability by 100 and round to 3 significant figures
+    class_probabilities = {class_name: round(probability * 100, 3) for class_name, probability in class_probabilities.items()}
     return predicted_class, class_probabilities
 
 if __name__ == '__main__':

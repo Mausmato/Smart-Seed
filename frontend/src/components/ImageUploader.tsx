@@ -19,19 +19,20 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ setPredictionData }) => {
   const handleSubmit = async () => {
     if (image) {
       const reader = new FileReader();
-      reader.readAsDataURL(image);
+      reader.readAsArrayBuffer(image);
       reader.onloadend = async () => {
         const base64String = reader.result?.toString().split(",")[1];
 
         if (base64String) {
+          console.log(base64String)
           try {
-            const response = await axios.post<PredictionData>(
-              "http://127.0.0.1:5000/predict",
-              {
-                image: base64String,
-              }
-            );
-            setPredictionData(response.data);
+            // const response = await axios.post<PredictionData>(
+            //   "http://127.0.0.1:5000/predict",
+            //   {
+            //     image: base64String,
+            //   }
+            // );
+            // setPredictionData(response.data);
           } catch (error) {
             console.error("Error uploading image:", error);
           }
